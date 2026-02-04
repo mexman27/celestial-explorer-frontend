@@ -1,0 +1,7 @@
+.visualization {
+  grid-area: visualization;
+  padding: var(--space-4);
+  background-color: var(--color-bg-primary);
+  overflow: auto;
+  color: var(--color-text-primary);
+}
