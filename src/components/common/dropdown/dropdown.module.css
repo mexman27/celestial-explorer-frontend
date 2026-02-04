@@ -1,0 +1,105 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 150px;
+  height: 2.25rem;
+  padding: 0 var(--space-3);
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.dropdown__trigger:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.dropdown__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dropdown__trigger--placeholder .dropdown__value {
+  color: var(--color-text-muted);
+}
+
+.dropdown__value {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown__arrow {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  transition: transform var(--transition-fast);
+}
+
+.dropdown--open .dropdown__arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-1);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility var(--transition-fast);
+}
+
+.dropdown--open .dropdown__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown__option {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.dropdown__option:first-child {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.dropdown__option:last-child {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.dropdown__option:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.dropdown__option--selected {
+  background-color: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
