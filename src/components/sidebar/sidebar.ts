@@ -1,15 +1,14 @@
 import styles from './sidebar.module.css';
 
-type Props = {
-  parent: HTMLElement
-};
-
 export class Sidebar {
   private el: HTMLElement;
 
-  constructor({ parent }: Props ) {
+  constructor() {
     this.el = document.createElement('div');
     this.el.className = styles['sidebar'];
+  }
+
+  mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
 

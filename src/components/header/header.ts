@@ -1,15 +1,14 @@
 import styles from './header.module.css';
 
-type Props = {
-  parent: HTMLElement
-};
-
 export class Header {
   private el: HTMLDivElement;
 
-  constructor({ parent }: Props) {
+  constructor() {
     this.el = document.createElement('div');
     this.el.className = styles['header'];
+  }
+
+  mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
 

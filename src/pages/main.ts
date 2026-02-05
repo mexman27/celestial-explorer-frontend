@@ -7,9 +7,9 @@ export function main(): HTMLDivElement {
   const el = document.createElement('div');
   el.className = styles['main'];
 
-  new Header({ parent: el });
-  new Sidebar({ parent: el });
-  new View({ parent: el });
+  new Header().mount(el);
+  new Sidebar().mount(el);
+  new View().mount(el);
 
   return el;
 }

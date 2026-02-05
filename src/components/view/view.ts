@@ -1,15 +1,14 @@
 import styles from './view.module.css';
 
-type Props = {
-  parent: HTMLElement
-};
-
 export class View {
   private el: HTMLDivElement;
 
-  constructor({ parent }: Props) {
+  constructor() {
     this.el = document.createElement('div');
     this.el.className = styles['view'];
+  }
+
+  mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
 
