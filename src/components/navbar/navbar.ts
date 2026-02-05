@@ -2,7 +2,7 @@ import styles from './navbar.module.css';
 import { Item } from './item/item';
 
 type Props = {
-  items: string[];
+  items: Item[];
 };
 
 export class Navbar {
@@ -14,9 +14,9 @@ export class Navbar {
     this.render(items);
   }
 
-  private render(items: string[]): void {
-    items.forEach(label => {
-      new Item({ label }).mount(this.el);
+  private render(items: Item[]): void {
+    items.forEach(item => {
+      item.mount(this.el);
     });
   }
 
@@ -28,7 +28,7 @@ export class Navbar {
     this.el.innerHTML = '';
   }
 
-  update(items: string[]): void {
+  update(items: Item[]): void {
     this.clear();
     this.render(items);
   }
