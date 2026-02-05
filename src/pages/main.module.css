@@ -1,0 +1,10 @@
+.main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar view";
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: var(--header-height) 1fr;
+}

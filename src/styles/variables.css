@@ -137,10 +137,4 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidebar visualization";
-  grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-rows: var(--header-height) 1fr;
 }

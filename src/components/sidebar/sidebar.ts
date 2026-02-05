@@ -1,11 +1,15 @@
 import styles from './sidebar.module.css';
 
-export class SidebarRegion {
+type Props = {
+  parent: HTMLElement
+};
+
+export class Sidebar {
   private el: HTMLElement;
 
-  constructor(parent: HTMLElement) {
+  constructor({ parent }: Props ) {
     this.el = document.createElement('div');
-    this.el.className = styles.sidebar ?? '';
+    this.el.className = styles['sidebar'];
     parent.appendChild(this.el);
   }
 

@@ -1,5 +1,5 @@
-.visualization {
-  grid-area: visualization;
+.view {
+  grid-area: view;
   padding: var(--space-4);
   background-color: var(--color-bg-primary);
   overflow: auto;

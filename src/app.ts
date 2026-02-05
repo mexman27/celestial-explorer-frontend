@@ -1,9 +1,9 @@
-import { main } from '@/engine/main';
+import { main } from '@/pages/main';
 
 export class App {
   constructor(private container: HTMLElement) {}
 
   start(): void {
-    main(this.container);
+    this.container.appendChild(main());
   }
 }
