@@ -1,4 +1,5 @@
 import styles from './navbar.module.css';
+import { Item } from './item/item';
 
 type Props = {
   items: string[];
@@ -14,12 +15,8 @@ export class Navbar {
   }
 
   private render(items: string[]): void {
-    this.el.innerHTML = '';
-    items.forEach(item => {
-      const span = document.createElement('span');
-      span.className = styles['item'];
-      span.textContent = item;
-      this.el.appendChild(span);
+    items.forEach(label => {
+      new Item({ label }).mount(this.el);
     });
   }
 
@@ -27,7 +24,12 @@ export class Navbar {
     parent.appendChild(this.el);
   }
 
+  clear(): void {
+    this.el.innerHTML = '';
+  }
+
   update(items: string[]): void {
+    this.clear();
     this.render(items);
   }
 }

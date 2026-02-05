@@ -1,0 +1,8 @@
+.item {
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.item:hover {
+  color: var(--color-text-primary);
+}

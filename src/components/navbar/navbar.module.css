@@ -6,12 +6,3 @@
   background-color: var(--color-bg-secondary);
   color: var(--color-text-secondary);
 }
-
-.item {
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-
-.item:hover {
-  color: var(--color-text-primary);
-}
