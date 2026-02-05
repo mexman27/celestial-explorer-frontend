@@ -5,7 +5,7 @@ type Props = {
 };
 
 export class View {
-  private el: HTMLDivElement;
+  el: HTMLDivElement;
 
   constructor({ content }: Props) {
     this.el = document.createElement('div');
