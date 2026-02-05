@@ -1,11 +1,16 @@
 import styles from './view.module.css';
 
+type Props = {
+  content: string;
+};
+
 export class View {
   private el: HTMLDivElement;
 
-  constructor() {
+  constructor({ content }: Props) {
     this.el = document.createElement('div');
     this.el.className = styles['view'];
+    this.el.textContent = content;
   }
 
   mount(parent: HTMLElement): void {

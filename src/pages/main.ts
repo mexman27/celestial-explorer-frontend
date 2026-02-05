@@ -7,9 +7,14 @@ export function main(): HTMLDivElement {
   const el = document.createElement('div');
   el.className = styles['main'];
 
-  new Header().mount(el);
-  new Sidebar().mount(el);
-  new View().mount(el);
+  const header = new Header({ title: 'Celestial Explorer' });
+  header.mount(el);
+
+  const sidebar = new Sidebar({ content: 'Sidebar' });
+  sidebar.mount(el);
+
+  const view = new View({ content: 'Main View' });
+  view.mount(el);
 
   return el;
 }

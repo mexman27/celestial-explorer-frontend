@@ -1,11 +1,16 @@
 import styles from './sidebar.module.css';
 
+type Props = {
+  content: string;
+};
+
 export class Sidebar {
   private el: HTMLElement;
 
-  constructor() {
+  constructor({ content }: Props) {
     this.el = document.createElement('div');
     this.el.className = styles['sidebar'];
+    this.el.textContent = content;
   }
 
   mount(parent: HTMLElement): void {

@@ -1,18 +1,23 @@
 import styles from './header.module.css';
 
+type Props = {
+  title: string;
+};
+
 export class Header {
   private el: HTMLDivElement;
 
-  constructor() {
+  constructor({ title }: Props) {
     this.el = document.createElement('div');
     this.el.className = styles['header'];
+    this.el.textContent = title;
   }
 
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
 
-  update(content: string): void {
-    this.el.textContent = content;
+  update(title: string): void {
+    this.el.textContent = title;
   }
 }
