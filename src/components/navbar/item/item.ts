@@ -2,13 +2,15 @@ import styles from './item.module.css';
 
 type Props = {
   label: string;
+  href: string;
 };
 
 export class Item {
-  private el: HTMLSpanElement;
+  private el: HTMLAnchorElement;
 
-  constructor({ label }: Props) {
-    this.el = document.createElement('span');
+  constructor({ label, href }: Props) {
+    this.el = document.createElement('a');
+    this.el.href = href;
     this.el.className = styles['item'];
     this.el.textContent = label;
   }
