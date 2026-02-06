@@ -4,15 +4,18 @@ export class Router {
   constructor(
     private outlet: HTMLElement,
     private routes: Routes,
-    defaultPath?: string,
+    private defaultPath?: string,
   ) {
     window.addEventListener('hashchange', () => this.resolve());
-
-    if (!location.hash && defaultPath) location.hash = defaultPath;
-    else this.resolve();
+    this.resolve();
   }
 
   private resolve(): void {
+    if ((!location.hash || location.hash === '#/') && this.defaultPath) {
+      location.hash = this.defaultPath;
+      return;
+    }
+
     const viewFn = this.routes[location.hash];
 
     this.outlet.innerHTML = '';

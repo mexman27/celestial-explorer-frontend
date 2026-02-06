@@ -3,10 +3,12 @@ import { Header } from '../components/header/header';
 import { Navbar } from '../components/navbar/navbar';
 import { Item } from '../components/navbar/item/item';
 import { Sidebar } from '../components/sidebar/sidebar';
+import { SidebarNav } from '../components/sidebar/nav/nav';
 import { View } from '../components/view/view';
 import { Router } from '../router/router';
 import { routes } from '../router/routes';
 import { PATHS } from '../router/paths';
+import { sidebarLinks } from '../router/sidebar';
 
 export function main(): HTMLDivElement {
   const el = document.createElement('div');
@@ -25,13 +27,15 @@ export function main(): HTMLDivElement {
   });
   header.mount(el);
 
-  const sidebar = new Sidebar({ content: 'Sidebar' });
+  const sidebar = new Sidebar({
+    nav: new SidebarNav({ links: sidebarLinks }),
+  });
   sidebar.mount(el);
 
   const view = new View({ content: '' });
   view.mount(el);
 
-  new Router(view.el, routes);
+  new Router(view.el, routes, PATHS.HOME);
 
   return el;
 }

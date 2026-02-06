@@ -1,23 +1,20 @@
 import styles from './sidebar.module.css';
+import { SidebarNav } from './nav/nav';
 
 type Props = {
-  content: string;
+  nav: SidebarNav;
 };
 
 export class Sidebar {
   private el: HTMLElement;
 
-  constructor({ content }: Props) {
+  constructor({ nav }: Props) {
     this.el = document.createElement('div');
     this.el.className = styles['sidebar'];
-    this.el.textContent = content;
+    nav.mount(this.el);
   }
 
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
-  }
-
-  update(content: string): void {
-    this.el.textContent = content;
   }
 }

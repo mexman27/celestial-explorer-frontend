@@ -1,0 +1,18 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  padding: var(--space-2) 0;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.link:hover,
+.link.active {
+  color: var(--color-text-primary);
+}

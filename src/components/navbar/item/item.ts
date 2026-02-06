@@ -19,7 +19,10 @@ export class Item {
   }
 
   private syncActive(): void {
-    this.el.classList.toggle(styles['active'], location.hash === this.el.hash);
+    const hash = location.hash;
+    const target = this.el.hash;
+    const isActive = hash === target || hash.startsWith(target + '/');
+    this.el.classList.toggle(styles['active'], isActive);
   }
 
   mount(parent: HTMLElement): void {
