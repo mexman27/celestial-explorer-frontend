@@ -13,6 +13,13 @@ export class Item {
     this.el.href = href;
     this.el.className = styles['item'];
     this.el.textContent = label;
+
+    this.syncActive();
+    window.addEventListener('hashchange', () => this.syncActive());
+  }
+
+  private syncActive(): void {
+    this.el.classList.toggle(styles['active'], location.hash === this.el.hash);
   }
 
   mount(parent: HTMLElement): void {

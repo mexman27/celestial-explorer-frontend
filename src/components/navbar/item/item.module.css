@@ -5,6 +5,7 @@
   color: inherit;
 }
 
-.item:hover {
+.item:hover,
+.item.active {
   color: var(--color-text-primary);
 }
