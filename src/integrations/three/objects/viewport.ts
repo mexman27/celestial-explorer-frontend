@@ -84,6 +84,11 @@ export class Viewport {
   }
 
   private loop = (): void => {
+    if (!this.renderer.domElement.isConnected) {
+      this.dispose();
+      return;
+    }
+
     this.frameId = requestAnimationFrame(this.loop);
     const dt = this.clock.getDelta();
 
