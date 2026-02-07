@@ -20,6 +20,10 @@ export class StarField {
 
   constructor(private scene: Scene) {}
 
+  get currentMesh(): InstancedMesh | null {
+    return this.mesh;
+  }
+
   setData(stars: StarPoint[]): void {
     this.clear();
 
