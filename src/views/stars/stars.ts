@@ -129,11 +129,35 @@ export function stars(): HTMLElement {
   tooltip.mount(el);
 
   const records: StarRecord[] = [];
+  let pinned = false;
 
   const canvas = viewport.renderer.domElement;
 
+  function tooltipRows(r: StarRecord) {
+    const cls = resolveClass(r);
+    const distance = Math.sqrt(
+      r.x_parsecs! ** 2 + r.y_parsecs! ** 2 + r.z_parsecs! ** 2,
+    );
+    const rows = [
+      { label: 'Class', value: cls || '—' },
+      { label: 'Distance', value: `${distance.toFixed(2)} pc` },
+    ];
+    if (r.apparent_magnitude != null) {
+      rows.splice(1, 0, { label: 'Magnitude', value: r.apparent_magnitude.toFixed(2) });
+    }
+    if (r.name) {
+      rows.unshift({ label: 'Name', value: r.name });
+    }
+    return rows;
+  }
+
   new StarPicker(viewport, starField, {
     onHover(hit) {
+      if (pinned) {
+        canvas.style.cursor = hit ? 'pointer' : '';
+        return;
+      }
+
       if (!hit || !records[hit.instanceId]) {
         tooltip.hide();
         canvas.style.cursor = '';
@@ -141,29 +165,21 @@ export function stars(): HTMLElement {
       }
 
       canvas.style.cursor = 'pointer';
-
-      const r = records[hit.instanceId];
-      const distance = Math.sqrt(
-        r.x_parsecs! ** 2 + r.y_parsecs! ** 2 + r.z_parsecs! ** 2,
-      );
-
-      const cls = resolveClass(r);
-      const rows = [
-        { label: 'Class', value: cls || '—' },
-        { label: 'Distance', value: `${distance.toFixed(2)} pc` },
-      ];
-      if (r.apparent_magnitude != null) {
-        rows.splice(1, 0, { label: 'Magnitude', value: r.apparent_magnitude.toFixed(2) });
-      }
-      if (r.name) {
-        rows.unshift({ label: 'Name', value: r.name });
-      }
-
-      tooltip.show(rows, hit.screenX, hit.screenY);
+      tooltip.show(tooltipRows(records[hit.instanceId]), hit.screenX, hit.screenY);
     },
     onClick(hit) {
       starField.clearHighlight();
+
+      if (!hit || !records[hit.instanceId]) {
+        pinned = false;
+        tooltip.hide();
+        return;
+      }
+
+      pinned = true;
       starField.highlight(hit.instanceId);
+      tooltip.show(tooltipRows(records[hit.instanceId]), hit.screenX, hit.screenY);
+      tooltip.setInteractive(true);
     },
   });
 

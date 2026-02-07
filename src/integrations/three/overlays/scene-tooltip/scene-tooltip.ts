@@ -43,6 +43,11 @@ export class SceneTooltip {
 
   hide(): void {
     this.el.style.display = 'none';
+    this.setInteractive(false);
+  }
+
+  setInteractive(value: boolean): void {
+    this.el.style.pointerEvents = value ? 'auto' : '';
   }
 
   private addRow(label: string, value: string): void {

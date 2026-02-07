@@ -33,4 +33,5 @@
   color: var(--color-text-primary);
   font-family: var(--font-family-mono);
   text-align: right;
+  user-select: text;
 }

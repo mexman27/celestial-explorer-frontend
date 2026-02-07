@@ -10,7 +10,7 @@ export type StarHit = {
 
 type StarPickerProps = {
   onHover: (hit: StarHit | null) => void;
-  onClick?: (hit: StarHit) => void;
+  onClick?: (hit: StarHit | null) => void;
   throttleMs?: number;
   pickRadius?: number;
 };
@@ -93,8 +93,7 @@ export class StarPicker {
 
   private handleClick(e: MouseEvent): void {
     if (!this.props.onClick) return;
-    const hit = this.pick(e);
-    if (hit) this.props.onClick(hit);
+    this.props.onClick(this.pick(e));
   }
 
   private handleMouseLeave(): void {
