@@ -10,51 +10,94 @@ export function designSystemButton(): HTMLElement {
 
   new Title({ text: 'Button' }).mount(el);
 
-  // Colors
-  const colors = new Section({ title: new Title({ text: 'Colors', type: 'section' }) });
-  const colorsFlex = new Flex();
-  new Button({ label: 'Primary' }).mount(colorsFlex.getEl());
-  new Button({ label: 'Secondary', color: 'secondary' }).mount(colorsFlex.getEl());
-  new Button({ label: 'Danger', color: 'danger' }).mount(colorsFlex.getEl());
-  colors.append(colorsFlex.getEl());
-  colors.mount(el);
-
-  // Disabled
-  const disabled = new Section({ title: new Title({ text: 'Disabled', type: 'section' }) });
-  const disabledFlex = new Flex();
-  new Button({ label: 'Primary', disabled: true }).mount(disabledFlex.getEl());
-  new Button({ label: 'Secondary', color: 'secondary', disabled: true }).mount(disabledFlex.getEl());
-  new Button({ label: 'Danger', color: 'danger', disabled: true }).mount(disabledFlex.getEl());
-  disabled.append(disabledFlex.getEl());
-  disabled.mount(el);
-
-  // Interactive
-  const interactive = new Section({ title: new Title({ text: 'Interactive', type: 'section' }) });
-  const interactiveFlex = new Flex();
-  let count = 0;
-  const counter = new Button({
-    label: `Clicked: ${count}`,
+  // Primary
+  const primary = new Section({ title: new Title({ text: 'Primary', type: 'section' }) });
+  const primaryFlex = new Flex();
+  new Button({ label: 'Default' }).mount(primaryFlex.getEl());
+  new Button({ label: 'Disabled', disabled: true }).mount(primaryFlex.getEl());
+  let primaryCount = 0;
+  const primaryCounter = new Button({
+    label: `Clicked: ${primaryCount}`,
     onClick: () => {
-      count++;
-      counter.update(`Clicked: ${count}`);
+      primaryCount++;
+      primaryCounter.update(`Clicked: ${primaryCount}`);
     },
   });
-  counter.mount(interactiveFlex.getEl());
+  primaryCounter.mount(primaryFlex.getEl());
+  primary.append(primaryFlex.getEl());
+  primary.mount(el);
 
-  const targetBtn = new Button({ label: 'Toggle me', color: 'danger' });
-  let isDisabled = false;
-  const toggle = new Button({
-    label: 'Toggle disable',
+  // Secondary
+  const secondary = new Section({ title: new Title({ text: 'Secondary', type: 'section' }) });
+  const secondaryFlex = new Flex();
+  new Button({ label: 'Default', color: 'secondary' }).mount(secondaryFlex.getEl());
+  new Button({ label: 'Disabled', color: 'secondary', disabled: true }).mount(secondaryFlex.getEl());
+  let secondaryCount = 0;
+  const secondaryCounter = new Button({
+    label: `Clicked: ${secondaryCount}`,
     color: 'secondary',
     onClick: () => {
-      isDisabled = !isDisabled;
-      isDisabled ? targetBtn.disable() : targetBtn.enable();
+      secondaryCount++;
+      secondaryCounter.update(`Clicked: ${secondaryCount}`);
     },
   });
-  toggle.mount(interactiveFlex.getEl());
-  targetBtn.mount(interactiveFlex.getEl());
-  interactive.append(interactiveFlex.getEl());
-  interactive.mount(el);
+  secondaryCounter.mount(secondaryFlex.getEl());
+  secondary.append(secondaryFlex.getEl());
+  secondary.mount(el);
+
+  // Danger
+  const danger = new Section({ title: new Title({ text: 'Danger', type: 'section' }) });
+  const dangerFlex = new Flex();
+  new Button({ label: 'Default', color: 'danger' }).mount(dangerFlex.getEl());
+  new Button({ label: 'Disabled', color: 'danger', disabled: true }).mount(dangerFlex.getEl());
+  let dangerCount = 0;
+  const dangerCounter = new Button({
+    label: `Clicked: ${dangerCount}`,
+    color: 'danger',
+    onClick: () => {
+      dangerCount++;
+      dangerCounter.update(`Clicked: ${dangerCount}`);
+    },
+  });
+  dangerCounter.mount(dangerFlex.getEl());
+  danger.append(dangerFlex.getEl());
+  danger.mount(el);
+
+  // Success
+  const success = new Section({ title: new Title({ text: 'Success', type: 'section' }) });
+  const successFlex = new Flex();
+  new Button({ label: 'Default', color: 'success' }).mount(successFlex.getEl());
+  new Button({ label: 'Disabled', color: 'success', disabled: true }).mount(successFlex.getEl());
+  let successCount = 0;
+  const successCounter = new Button({
+    label: `Clicked: ${successCount}`,
+    color: 'success',
+    onClick: () => {
+      successCount++;
+      successCounter.update(`Clicked: ${successCount}`);
+    },
+  });
+  successCounter.mount(successFlex.getEl());
+  success.append(successFlex.getEl());
+  success.mount(el);
+
+  // Warning
+  const warning = new Section({ title: new Title({ text: 'Warning', type: 'section' }) });
+  const warningFlex = new Flex();
+  new Button({ label: 'Default', color: 'warning' }).mount(warningFlex.getEl());
+  new Button({ label: 'Disabled', color: 'warning', disabled: true }).mount(warningFlex.getEl());
+  let warningCount = 0;
+  const warningCounter = new Button({
+    label: `Clicked: ${warningCount}`,
+    color: 'warning',
+    onClick: () => {
+      warningCount++;
+      warningCounter.update(`Clicked: ${warningCount}`);
+    },
+  });
+  warningCounter.mount(warningFlex.getEl());
+  warning.append(warningFlex.getEl());
+  warning.mount(el);
 
   return el;
 }

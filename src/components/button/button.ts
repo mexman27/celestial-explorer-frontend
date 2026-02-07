@@ -1,6 +1,6 @@
 import styles from './button.module.css';
 
-type Color = 'primary' | 'secondary' | 'danger';
+type Color = 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
 
 type Props = {
   label: string;
