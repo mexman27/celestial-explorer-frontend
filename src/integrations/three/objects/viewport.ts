@@ -55,7 +55,7 @@ export class Viewport {
   start(): void {
     if (this.frameId !== null) return;
     this.clock.start();
-    this.loop();
+    this.frameId = requestAnimationFrame(this.loop);
   }
 
   stop(): void {

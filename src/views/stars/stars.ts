@@ -1,3 +1,4 @@
+import { AxesHelper } from 'three';
 import { Viewport } from '@/integrations/three/objects/viewport.ts';
 import { StarField } from '@/integrations/three/objects/star-field.ts';
 import type { StarPoint } from '@/integrations/three/objects/star-field.ts';
@@ -76,10 +77,17 @@ async function loadStars(client: GaiaClient, field: StarField): Promise<void> {
     const valid = page.data.results.filter(
       s => s.x_parsecs != null && s.y_parsecs != null && s.z_parsecs != null,
     );
+
+    if (points.length === 0 && valid.length > 0) {
+      const s = valid[0];
+      log.info('First star coords:', s.x_parsecs, s.y_parsecs, s.z_parsecs, 'class:', s.spectral_class, 'mag:', s.apparent_magnitude);
+    }
+    log.info(`Page: ${page.data.results.length} total, ${valid.length} with coords`);
+
     points.push(...valid.map(toStarPoint));
 
     if (points.length - lastRender >= RENDER_BATCH) {
-      log.debug(`Rendering batch: ${points.length}/${page.data.count}`);
+      log.info(`Rendering batch: ${points.length}/${page.data.count}`);
       field.setData(points);
       lastRender = points.length;
     }
@@ -99,10 +107,15 @@ export function stars(): HTMLElement {
   const viewport = new Viewport(el, { background: 0x030308 });
   const starField = new StarField(viewport.scene);
 
+  // Debug: axes helper (R=X, G=Y, B=Z) — visible if scene renders
+  viewport.scene.add(new AxesHelper(10));
+
   viewport.camera.position.set(0, 15, 30);
   new CameraControls(viewport);
 
   viewport.start();
+
+  log.info('Canvas size:', viewport.renderer.domElement.width, viewport.renderer.domElement.height);
 
   const client = new GaiaClient();
   loadStars(client, starField);
