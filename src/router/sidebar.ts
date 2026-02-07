@@ -29,4 +29,9 @@ export const sidebarLinks: Record<string, SidebarLink[]> = {
     { label: 'Elliptical Galaxies', href: PATHS.GALAXIES_ELLIPTICAL },
     { label: 'Dwarf Galaxies', href: PATHS.GALAXIES_DWARF },
   ],
+
+  [PATHS.DESIGN_SYSTEM]: [
+    { label: 'Button', href: PATHS.DESIGN_SYSTEM_BUTTON },
+    { label: 'Card', href: PATHS.DESIGN_SYSTEM_CARD },
+  ],
 };

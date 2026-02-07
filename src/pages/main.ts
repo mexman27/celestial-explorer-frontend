@@ -22,6 +22,7 @@ export function main(): HTMLDivElement {
         new Item({ label: 'Stars', href: PATHS.STARS }),
         new Item({ label: 'Planets', href: PATHS.PLANETS }),
         new Item({ label: 'Galaxies', href: PATHS.GALAXIES }),
+        new Item({ label: 'Design System', href: PATHS.DESIGN_SYSTEM }),
       ],
     }),
   });

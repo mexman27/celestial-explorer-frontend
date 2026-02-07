@@ -22,4 +22,8 @@ export const routes: Routes = {
   [PATHS.GALAXIES_SPIRAL]: Views.galaxiesSpiral,
   [PATHS.GALAXIES_ELLIPTICAL]: Views.galaxiesElliptical,
   [PATHS.GALAXIES_DWARF]: Views.galaxiesDwarf,
+
+  [PATHS.DESIGN_SYSTEM]: Views.designSystem,
+  [PATHS.DESIGN_SYSTEM_BUTTON]: Views.designSystemButton,
+  [PATHS.DESIGN_SYSTEM_CARD]: Views.designSystemCard,
 };

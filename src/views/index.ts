@@ -19,9 +19,15 @@ export {
   planetsExoplanets 
 } from './planets';
 
-export { 
-  galaxies, 
-  galaxiesSpiral, 
-  galaxiesElliptical, 
-  galaxiesDwarf 
-} from './galaxies'
+export {
+  galaxies,
+  galaxiesSpiral,
+  galaxiesElliptical,
+  galaxiesDwarf
+} from './galaxies';
+
+export {
+  designSystem,
+  designSystemButton,
+  designSystemCard,
+} from './design-system';

@@ -18,4 +18,8 @@ export const PATHS = {
   GALAXIES_SPIRAL: '#/galaxies/spiral',
   GALAXIES_ELLIPTICAL: '#/galaxies/elliptical',
   GALAXIES_DWARF: '#/galaxies/dwarf',
+
+  DESIGN_SYSTEM: '#/design-system',
+  DESIGN_SYSTEM_BUTTON: '#/design-system/button',
+  DESIGN_SYSTEM_CARD: '#/design-system/card',
 } as const;
