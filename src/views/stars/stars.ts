@@ -6,6 +6,7 @@ import { StarPicker } from '@/integrations/three/interactions/star-picker.ts';
 import { GaiaClient } from '@/http/gaia/main.ts';
 import { createLogger } from '@/services/logger/main.ts';
 import { SceneTooltip } from '@/integrations/three/overlays/scene-tooltip/scene-tooltip.ts';
+import { Overlay } from '@/components/overlay/overlay.ts';
 import styles from './stars.module.css';
 
 const log = createLogger('stars');
@@ -89,15 +90,12 @@ function toStarPoint(star: StarRecord): StarPoint {
   };
 }
 
-const RENDER_BATCH = 500;
-
 async function loadStars(
   client: GaiaClient,
   field: StarField,
   records: StarRecord[],
 ): Promise<void> {
   const points: StarPoint[] = [];
-  let lastRender = 0;
 
   for await (const page of client.stars.paginate<StarRecord>({ page_size: 5000 })) {
     if (!page.ok) {
@@ -109,22 +107,11 @@ async function loadStars(
       s => s.x_parsecs != null && s.y_parsecs != null && s.z_parsecs != null,
     );
 
-    log.debug(`Page: ${page.data.results.length} total, ${valid.length} with coords`);
-
     points.push(...valid.map(toStarPoint));
     records.push(...valid);
-
-    if (points.length - lastRender >= RENDER_BATCH) {
-      log.debug(`Rendering batch: ${points.length}/${page.data.count}`);
-      field.setData(points);
-      lastRender = points.length;
-    }
   }
 
-  if (points.length !== lastRender) {
-    field.setData(points);
-  }
-
+  field.setData(points);
   log.info(`Loaded ${points.length} stars`);
 }
 
@@ -171,10 +158,13 @@ export function stars(): HTMLElement {
     },
   });
 
+  const overlay = new Overlay({ visible: true, message: 'Loading stars…' });
+  overlay.mount(el);
+
   viewport.start();
 
   const client = new GaiaClient();
-  loadStars(client, starField, records);
+  loadStars(client, starField, records).finally(() => overlay.hide());
 
   return el;
 }
