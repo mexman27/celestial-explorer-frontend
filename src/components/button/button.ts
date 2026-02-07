@@ -5,16 +5,18 @@ type Color = 'primary' | 'secondary' | 'danger';
 type Props = {
   label: string;
   color?: Color;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
 export class Button {
   private el: HTMLButtonElement;
 
-  constructor({ label, color = 'primary', onClick }: Props) {
+  constructor({ label, color = 'primary', disabled = false, onClick }: Props) {
     this.el = document.createElement('button');
     this.el.className = `${styles['button']} ${styles[color]}`;
     this.el.textContent = label;
+    this.el.disabled = disabled;
 
     if (onClick) {
       this.el.addEventListener('click', onClick);
@@ -29,7 +31,11 @@ export class Button {
     this.el.textContent = label;
   }
 
-  setDisabled(disabled: boolean): void {
-    this.el.disabled = disabled;
+  disable(): void {
+    this.el.disabled = true;
+  }
+
+  enable(): void {
+    this.el.disabled = false;
   }
 }

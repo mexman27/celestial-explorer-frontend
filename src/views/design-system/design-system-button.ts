@@ -21,15 +21,9 @@ export function designSystemButton(): HTMLElement {
   // Disabled
   const disabledSection = section('Disabled');
   const disabledRow = row();
-  const disabledPrimary = new Button({ label: 'Primary' });
-  disabledPrimary.setDisabled(true);
-  disabledPrimary.mount(disabledRow);
-  const disabledSecondary = new Button({ label: 'Secondary', color: 'secondary' });
-  disabledSecondary.setDisabled(true);
-  disabledSecondary.mount(disabledRow);
-  const disabledDanger = new Button({ label: 'Danger', color: 'danger' });
-  disabledDanger.setDisabled(true);
-  disabledDanger.mount(disabledRow);
+  new Button({ label: 'Primary', disabled: true }).mount(disabledRow);
+  new Button({ label: 'Secondary', color: 'secondary', disabled: true }).mount(disabledRow);
+  new Button({ label: 'Danger', color: 'danger', disabled: true }).mount(disabledRow);
   disabledSection.appendChild(disabledRow);
   el.appendChild(disabledSection);
 
@@ -47,13 +41,13 @@ export function designSystemButton(): HTMLElement {
   counter.mount(interactiveRow);
 
   const targetBtn = new Button({ label: 'Toggle me', color: 'danger' });
-  let disabled = false;
+  let isDisabled = false;
   const toggle = new Button({
     label: 'Toggle disable',
     color: 'secondary',
     onClick: () => {
-      disabled = !disabled;
-      targetBtn.setDisabled(disabled);
+      isDisabled = !isDisabled;
+      isDisabled ? targetBtn.disable() : targetBtn.enable();
     },
   });
   toggle.mount(interactiveRow);
