@@ -1,4 +1,5 @@
 import styles from './card.module.css';
+import { Title } from '../title/title';
 
 type Props = {
   title?: string;
@@ -7,7 +8,7 @@ type Props = {
 
 export class Card {
   private el: HTMLDivElement;
-  private titleEl: HTMLHeadingElement | null = null;
+  private title: Title | null = null;
   private bodyEl: HTMLDivElement;
 
   constructor({ title, body }: Props) {
@@ -15,10 +16,8 @@ export class Card {
     this.el.className = styles['card'];
 
     if (title) {
-      this.titleEl = document.createElement('h3');
-      this.titleEl.className = styles['title'];
-      this.titleEl.textContent = title;
-      this.el.appendChild(this.titleEl);
+      this.title = new Title({ text: title, type: 'card' });
+      this.title.mount(this.el);
     }
 
     this.bodyEl = document.createElement('div');
@@ -38,8 +37,8 @@ export class Card {
   }
 
   update({ title, body }: Partial<Props>): void {
-    if (title !== undefined && this.titleEl) {
-      this.titleEl.textContent = title;
+    if (title !== undefined && this.title) {
+      this.title.update(title);
     }
     if (body !== undefined) {
       this.bodyEl.textContent = body;

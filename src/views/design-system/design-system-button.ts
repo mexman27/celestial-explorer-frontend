@@ -1,14 +1,13 @@
 import styles from './showcase.module.css';
 import { Button } from '@/components/button/button';
+import { Title } from '@/components/title/title';
+
 
 export function designSystemButton(): HTMLElement {
   const el = document.createElement('div');
   el.className = styles['page'];
 
-  const title = document.createElement('h2');
-  title.className = styles['pageTitle'];
-  title.textContent = 'Button';
-  el.appendChild(title);
+  new Title({ text: 'Button' }).mount(el);
 
   // Colors
   const colorsSection = section('Colors');
@@ -68,10 +67,7 @@ export function designSystemButton(): HTMLElement {
 function section(label: string): HTMLElement {
   const el = document.createElement('div');
   el.className = styles['section'];
-  const title = document.createElement('h3');
-  title.className = styles['sectionTitle'];
-  title.textContent = label;
-  el.appendChild(title);
+  new Title({ text: label, type: 'section' }).mount(el);
   return el;
 }
 

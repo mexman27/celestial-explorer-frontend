@@ -1,14 +1,12 @@
 import styles from './showcase.module.css';
 import { Card } from '@/components/card/card';
+import { Title } from '@/components/title/title';
 
 export function designSystemCard(): HTMLElement {
   const el = document.createElement('div');
   el.className = styles['page'];
 
-  const title = document.createElement('h2');
-  title.className = styles['pageTitle'];
-  title.textContent = 'Card';
-  el.appendChild(title);
+  new Title({ text: 'Card' }).mount(el);
 
   // Title + Body
   const fullSection = section('Title + Body');
@@ -71,10 +69,7 @@ export function designSystemCard(): HTMLElement {
 function section(label: string): HTMLElement {
   const el = document.createElement('div');
   el.className = styles['section'];
-  const title = document.createElement('h3');
-  title.className = styles['sectionTitle'];
-  title.textContent = label;
-  el.appendChild(title);
+  new Title({ text: label, type: 'section' }).mount(el);
   return el;
 }
 
