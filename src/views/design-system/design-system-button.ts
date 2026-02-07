@@ -2,7 +2,7 @@ import styles from './showcase.module.css';
 import { Button } from '@/components/button/button';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
-
+import { Flex } from '@/components/flex/flex';
 
 export function designSystemButton(): HTMLElement {
   const el = document.createElement('div');
@@ -12,25 +12,25 @@ export function designSystemButton(): HTMLElement {
 
   // Colors
   const colors = new Section({ title: new Title({ text: 'Colors', type: 'section' }) });
-  const colorsRow = row();
-  new Button({ label: 'Primary' }).mount(colorsRow);
-  new Button({ label: 'Secondary', color: 'secondary' }).mount(colorsRow);
-  new Button({ label: 'Danger', color: 'danger' }).mount(colorsRow);
-  colors.append(colorsRow);
+  const colorsFlex = new Flex();
+  new Button({ label: 'Primary' }).mount(colorsFlex.getEl());
+  new Button({ label: 'Secondary', color: 'secondary' }).mount(colorsFlex.getEl());
+  new Button({ label: 'Danger', color: 'danger' }).mount(colorsFlex.getEl());
+  colors.append(colorsFlex.getEl());
   colors.mount(el);
 
   // Disabled
   const disabled = new Section({ title: new Title({ text: 'Disabled', type: 'section' }) });
-  const disabledRow = row();
-  new Button({ label: 'Primary', disabled: true }).mount(disabledRow);
-  new Button({ label: 'Secondary', color: 'secondary', disabled: true }).mount(disabledRow);
-  new Button({ label: 'Danger', color: 'danger', disabled: true }).mount(disabledRow);
-  disabled.append(disabledRow);
+  const disabledFlex = new Flex();
+  new Button({ label: 'Primary', disabled: true }).mount(disabledFlex.getEl());
+  new Button({ label: 'Secondary', color: 'secondary', disabled: true }).mount(disabledFlex.getEl());
+  new Button({ label: 'Danger', color: 'danger', disabled: true }).mount(disabledFlex.getEl());
+  disabled.append(disabledFlex.getEl());
   disabled.mount(el);
 
   // Interactive
   const interactive = new Section({ title: new Title({ text: 'Interactive', type: 'section' }) });
-  const interactiveRow = row();
+  const interactiveFlex = new Flex();
   let count = 0;
   const counter = new Button({
     label: `Clicked: ${count}`,
@@ -39,7 +39,7 @@ export function designSystemButton(): HTMLElement {
       counter.update(`Clicked: ${count}`);
     },
   });
-  counter.mount(interactiveRow);
+  counter.mount(interactiveFlex.getEl());
 
   const targetBtn = new Button({ label: 'Toggle me', color: 'danger' });
   let isDisabled = false;
@@ -51,16 +51,10 @@ export function designSystemButton(): HTMLElement {
       isDisabled ? targetBtn.disable() : targetBtn.enable();
     },
   });
-  toggle.mount(interactiveRow);
-  targetBtn.mount(interactiveRow);
-  interactive.append(interactiveRow);
+  toggle.mount(interactiveFlex.getEl());
+  targetBtn.mount(interactiveFlex.getEl());
+  interactive.append(interactiveFlex.getEl());
   interactive.mount(el);
 
-  return el;
-}
-
-function row(): HTMLElement {
-  const el = document.createElement('div');
-  el.className = styles['row'];
   return el;
 }

@@ -2,6 +2,7 @@ import styles from './showcase.module.css';
 import { Card } from '@/components/card/card';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
+import { Grid } from '@/components/grid/grid';
 
 export function designSystemCard(): HTMLElement {
   const el = document.createElement('div');
@@ -11,45 +12,45 @@ export function designSystemCard(): HTMLElement {
 
   // Title + Body
   const full = new Section({ title: new Title({ text: 'Title + Body', type: 'section' }) });
-  const fullGrid = grid();
+  const fullGrid = new Grid();
   new Card({
     title: 'Andromeda Galaxy',
     body: 'The nearest major galaxy to the Milky Way, approximately 2.5 million light-years away.',
-  }).mount(fullGrid);
+  }).mount(fullGrid.getEl());
   new Card({
     title: 'Proxima Centauri',
     body: 'The closest known star to the Sun, a red dwarf in the Alpha Centauri system.',
-  }).mount(fullGrid);
+  }).mount(fullGrid.getEl());
   new Card({
     title: 'Jupiter',
     body: 'The largest planet in our solar system with a mass more than twice that of all other planets combined.',
-  }).mount(fullGrid);
-  full.append(fullGrid);
+  }).mount(fullGrid.getEl());
+  full.append(fullGrid.getEl());
   full.mount(el);
 
   // Body Only
   const bodyOnly = new Section({ title: new Title({ text: 'Body Only', type: 'section' }) });
-  const bodyGrid = grid();
+  const bodyGrid = new Grid();
   new Card({
     body: 'A card without a title, useful for simple content blocks or status messages.',
-  }).mount(bodyGrid);
+  }).mount(bodyGrid.getEl());
   new Card({
     body: 'Another body-only card showing how the component adapts when no heading is provided.',
-  }).mount(bodyGrid);
-  bodyOnly.append(bodyGrid);
+  }).mount(bodyGrid.getEl());
+  bodyOnly.append(bodyGrid.getEl());
   bodyOnly.mount(el);
 
   // Title Only
   const titleOnly = new Section({ title: new Title({ text: 'Title Only', type: 'section' }) });
-  const titleGrid = grid();
-  new Card({ title: 'Empty State' }).mount(titleGrid);
-  new Card({ title: 'Placeholder' }).mount(titleGrid);
-  titleOnly.append(titleGrid);
+  const titleGrid = new Grid();
+  new Card({ title: 'Empty State' }).mount(titleGrid.getEl());
+  new Card({ title: 'Placeholder' }).mount(titleGrid.getEl());
+  titleOnly.append(titleGrid.getEl());
   titleOnly.mount(el);
 
   // With Nested Content
   const nested = new Section({ title: new Title({ text: 'Nested Content', type: 'section' }) });
-  const nestedGrid = grid();
+  const nestedGrid = new Grid();
   const nestedCard = new Card({ title: 'Star Properties' });
   const list = document.createElement('ul');
   list.style.cssText = 'list-style: none; display: flex; flex-direction: column; gap: 0.5rem;';
@@ -60,15 +61,9 @@ export function designSystemCard(): HTMLElement {
     list.appendChild(li);
   });
   nestedCard.getBody().appendChild(list);
-  nestedCard.mount(nestedGrid);
-  nested.append(nestedGrid);
+  nestedCard.mount(nestedGrid.getEl());
+  nested.append(nestedGrid.getEl());
   nested.mount(el);
 
-  return el;
-}
-
-function grid(): HTMLElement {
-  const el = document.createElement('div');
-  el.className = styles['grid'];
   return el;
 }
