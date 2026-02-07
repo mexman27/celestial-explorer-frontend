@@ -1,6 +1,7 @@
 import styles from './showcase.module.css';
 import { Button } from '@/components/button/button';
 import { Title } from '@/components/title/title';
+import { Section } from '@/components/section/section';
 
 
 export function designSystemButton(): HTMLElement {
@@ -10,25 +11,25 @@ export function designSystemButton(): HTMLElement {
   new Title({ text: 'Button' }).mount(el);
 
   // Colors
-  const colorsSection = section('Colors');
+  const colors = new Section({ title: new Title({ text: 'Colors', type: 'section' }) });
   const colorsRow = row();
   new Button({ label: 'Primary' }).mount(colorsRow);
   new Button({ label: 'Secondary', color: 'secondary' }).mount(colorsRow);
   new Button({ label: 'Danger', color: 'danger' }).mount(colorsRow);
-  colorsSection.appendChild(colorsRow);
-  el.appendChild(colorsSection);
+  colors.append(colorsRow);
+  colors.mount(el);
 
   // Disabled
-  const disabledSection = section('Disabled');
+  const disabled = new Section({ title: new Title({ text: 'Disabled', type: 'section' }) });
   const disabledRow = row();
   new Button({ label: 'Primary', disabled: true }).mount(disabledRow);
   new Button({ label: 'Secondary', color: 'secondary', disabled: true }).mount(disabledRow);
   new Button({ label: 'Danger', color: 'danger', disabled: true }).mount(disabledRow);
-  disabledSection.appendChild(disabledRow);
-  el.appendChild(disabledSection);
+  disabled.append(disabledRow);
+  disabled.mount(el);
 
   // Interactive
-  const interactiveSection = section('Interactive');
+  const interactive = new Section({ title: new Title({ text: 'Interactive', type: 'section' }) });
   const interactiveRow = row();
   let count = 0;
   const counter = new Button({
@@ -52,16 +53,9 @@ export function designSystemButton(): HTMLElement {
   });
   toggle.mount(interactiveRow);
   targetBtn.mount(interactiveRow);
-  interactiveSection.appendChild(interactiveRow);
-  el.appendChild(interactiveSection);
+  interactive.append(interactiveRow);
+  interactive.mount(el);
 
-  return el;
-}
-
-function section(label: string): HTMLElement {
-  const el = document.createElement('div');
-  el.className = styles['section'];
-  new Title({ text: label, type: 'section' }).mount(el);
   return el;
 }
 

@@ -1,6 +1,7 @@
 import styles from './showcase.module.css';
 import { Card } from '@/components/card/card';
 import { Title } from '@/components/title/title';
+import { Section } from '@/components/section/section';
 
 export function designSystemCard(): HTMLElement {
   const el = document.createElement('div');
@@ -9,7 +10,7 @@ export function designSystemCard(): HTMLElement {
   new Title({ text: 'Card' }).mount(el);
 
   // Title + Body
-  const fullSection = section('Title + Body');
+  const full = new Section({ title: new Title({ text: 'Title + Body', type: 'section' }) });
   const fullGrid = grid();
   new Card({
     title: 'Andromeda Galaxy',
@@ -23,11 +24,11 @@ export function designSystemCard(): HTMLElement {
     title: 'Jupiter',
     body: 'The largest planet in our solar system with a mass more than twice that of all other planets combined.',
   }).mount(fullGrid);
-  fullSection.appendChild(fullGrid);
-  el.appendChild(fullSection);
+  full.append(fullGrid);
+  full.mount(el);
 
   // Body Only
-  const bodySection = section('Body Only');
+  const bodyOnly = new Section({ title: new Title({ text: 'Body Only', type: 'section' }) });
   const bodyGrid = grid();
   new Card({
     body: 'A card without a title, useful for simple content blocks or status messages.',
@@ -35,19 +36,19 @@ export function designSystemCard(): HTMLElement {
   new Card({
     body: 'Another body-only card showing how the component adapts when no heading is provided.',
   }).mount(bodyGrid);
-  bodySection.appendChild(bodyGrid);
-  el.appendChild(bodySection);
+  bodyOnly.append(bodyGrid);
+  bodyOnly.mount(el);
 
   // Title Only
-  const titleSection = section('Title Only');
+  const titleOnly = new Section({ title: new Title({ text: 'Title Only', type: 'section' }) });
   const titleGrid = grid();
   new Card({ title: 'Empty State' }).mount(titleGrid);
   new Card({ title: 'Placeholder' }).mount(titleGrid);
-  titleSection.appendChild(titleGrid);
-  el.appendChild(titleSection);
+  titleOnly.append(titleGrid);
+  titleOnly.mount(el);
 
   // With Nested Content
-  const nestedSection = section('Nested Content');
+  const nested = new Section({ title: new Title({ text: 'Nested Content', type: 'section' }) });
   const nestedGrid = grid();
   const nestedCard = new Card({ title: 'Star Properties' });
   const list = document.createElement('ul');
@@ -60,16 +61,9 @@ export function designSystemCard(): HTMLElement {
   });
   nestedCard.getBody().appendChild(list);
   nestedCard.mount(nestedGrid);
-  nestedSection.appendChild(nestedGrid);
-  el.appendChild(nestedSection);
+  nested.append(nestedGrid);
+  nested.mount(el);
 
-  return el;
-}
-
-function section(label: string): HTMLElement {
-  const el = document.createElement('div');
-  el.className = styles['section'];
-  new Title({ text: label, type: 'section' }).mount(el);
   return el;
 }
 
