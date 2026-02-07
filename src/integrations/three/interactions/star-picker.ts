@@ -10,6 +10,7 @@ export type StarHit = {
 
 type StarPickerProps = {
   onHover: (hit: StarHit | null) => void;
+  onClick?: (hit: StarHit) => void;
   throttleMs?: number;
   pickRadius?: number;
 };
@@ -33,22 +34,17 @@ export class StarPicker {
 
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     const el = viewport.renderer.domElement;
     el.addEventListener('mousemove', this.handleMouseMove);
     el.addEventListener('mouseleave', this.handleMouseLeave);
+    el.addEventListener('click', this.handleClick);
   }
 
-  private handleMouseMove(e: MouseEvent): void {
-    const now = performance.now();
-    if (now - this.lastCall < this.throttleMs) return;
-    this.lastCall = now;
-
+  private pick(e: MouseEvent): StarHit | null {
     const mesh = this.starField.currentMesh;
-    if (!mesh) {
-      this.props.onHover(null);
-      return;
-    }
+    if (!mesh) return null;
 
     const rect = this.viewport.renderer.domElement.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -66,7 +62,6 @@ export class StarPicker {
       pos.setFromMatrixPosition(matrix);
       projected.copy(pos).project(camera);
 
-      // Skip stars behind camera
       if (projected.z < 0 || projected.z > 1) continue;
 
       const sx = (projected.x * 0.5 + 0.5) * w;
@@ -83,14 +78,23 @@ export class StarPicker {
     }
 
     if (closestId >= 0) {
-      this.props.onHover({
-        instanceId: closestId,
-        screenX: e.clientX,
-        screenY: e.clientY,
-      });
-    } else {
-      this.props.onHover(null);
+      return { instanceId: closestId, screenX: e.clientX, screenY: e.clientY };
     }
+    return null;
+  }
+
+  private handleMouseMove(e: MouseEvent): void {
+    const now = performance.now();
+    if (now - this.lastCall < this.throttleMs) return;
+    this.lastCall = now;
+
+    this.props.onHover(this.pick(e));
+  }
+
+  private handleClick(e: MouseEvent): void {
+    if (!this.props.onClick) return;
+    const hit = this.pick(e);
+    if (hit) this.props.onClick(hit);
   }
 
   private handleMouseLeave(): void {
@@ -101,5 +105,6 @@ export class StarPicker {
     const el = this.viewport.renderer.domElement;
     el.removeEventListener('mousemove', this.handleMouseMove);
     el.removeEventListener('mouseleave', this.handleMouseLeave);
+    el.removeEventListener('click', this.handleClick);
   }
 }

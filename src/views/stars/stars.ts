@@ -130,12 +130,17 @@ export function stars(): HTMLElement {
 
   const records: StarRecord[] = [];
 
+  const canvas = viewport.renderer.domElement;
+
   new StarPicker(viewport, starField, {
     onHover(hit) {
       if (!hit || !records[hit.instanceId]) {
         tooltip.hide();
+        canvas.style.cursor = '';
         return;
       }
+
+      canvas.style.cursor = 'pointer';
 
       const r = records[hit.instanceId];
       const distance = Math.sqrt(
@@ -155,6 +160,10 @@ export function stars(): HTMLElement {
       }
 
       tooltip.show(rows, hit.screenX, hit.screenY);
+    },
+    onClick(hit) {
+      starField.clearHighlight();
+      starField.highlight(hit.instanceId);
     },
   });
 
