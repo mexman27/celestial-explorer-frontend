@@ -1,5 +1,9 @@
+import { View } from '@/components/view/view.ts';
+
 export function galaxiesElliptical(): HTMLElement {
+  const view = new View();
   const el = document.createElement('p');
   el.textContent = 'Smooth, featureless ellipsoidal galaxies';
-  return el;
+  view.el.appendChild(el);
+  return view.el;
 }

@@ -1,3 +1,4 @@
+import { View } from '@/components/view/view.ts';
 import styles from './showcase.module.css';
 import { Button } from '@/components/button/button';
 import { Title } from '@/components/title/title';
@@ -5,6 +6,7 @@ import { Section } from '@/components/section/section';
 import { Flex } from '@/components/flex/flex';
 
 export function designSystemButton(): HTMLElement {
+  const view = new View();
   const el = document.createElement('div');
   el.className = styles['page'];
 
@@ -99,5 +101,6 @@ export function designSystemButton(): HTMLElement {
   warning.append(warningFlex.getEl());
   warning.mount(el);
 
-  return el;
+  view.el.appendChild(el);
+  return view.el;
 }

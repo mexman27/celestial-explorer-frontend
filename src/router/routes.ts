@@ -1,6 +1,8 @@
-import { Routes } from './router';
+import type { Routes } from './router';
 import { PATHS } from './paths';
 import * as Views from '@/views';
+
+import { starsRoute } from './routes/stars';
 
 export const routes: Routes = {
   [PATHS.HOME]: Views.home,
@@ -8,7 +10,7 @@ export const routes: Routes = {
   [PATHS.HOME_GETTING_STARTED]: Views.homeGettingStarted,
   [PATHS.HOME_ABOUT]: Views.homeAbout,
 
-  [PATHS.STARS]: Views.stars,
+  ...starsRoute,
   [PATHS.STARS_BRIGHTEST]: Views.starsBrightest,
   [PATHS.STARS_NEAREST]: Views.starsNearest,
   [PATHS.STARS_TYPES]: Views.starsTypes,

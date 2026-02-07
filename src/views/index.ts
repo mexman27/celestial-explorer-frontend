@@ -5,11 +5,12 @@ export {
   homeAbout 
 } from './home';
 
-export { 
-  stars, 
-  starsBrightest, 
-  starsNearest, 
-  starsTypes 
+export {
+  stars,
+  starDetail,
+  starsBrightest,
+  starsNearest,
+  starsTypes
 } from './stars';
 
 export { 

@@ -1,3 +1,4 @@
+import { View } from '@/components/view/view.ts';
 import styles from './showcase.module.css';
 import { Input } from '@/components/input/main';
 import { Title } from '@/components/title/title';
@@ -5,6 +6,7 @@ import { Section } from '@/components/section/section';
 import { Grid } from '@/components/grid/grid';
 
 export function designSystemInput(): HTMLElement {
+  const view = new View();
   const el = document.createElement('div');
   el.className = styles['page'];
 
@@ -42,5 +44,6 @@ export function designSystemInput(): HTMLElement {
   disabled.append(disabledGrid.getEl());
   disabled.mount(el);
 
-  return el;
+  view.el.appendChild(el);
+  return view.el;
 }

@@ -1,3 +1,4 @@
+import { View } from '@/components/view/view.ts';
 import styles from './showcase.module.css';
 import { Card } from '@/components/card/card';
 import { Title } from '@/components/title/title';
@@ -6,6 +7,7 @@ import { Grid } from '@/components/grid/grid';
 import { List } from '@/components/list/list';
 
 export function designSystemCard(): HTMLElement {
+  const view = new View();
   const el = document.createElement('div');
   el.className = styles['page'];
 
@@ -61,5 +63,6 @@ export function designSystemCard(): HTMLElement {
   nested.append(nestedGrid.getEl());
   nested.mount(el);
 
-  return el;
+  view.el.appendChild(el);
+  return view.el;
 }

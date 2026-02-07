@@ -50,6 +50,14 @@ export class SceneTooltip {
     this.el.style.pointerEvents = value ? 'auto' : '';
   }
 
+  addLink(text: string, href: string): void {
+    const link = document.createElement('a');
+    link.className = styles['link'];
+    link.href = href;
+    link.textContent = text;
+    this.el.appendChild(link);
+  }
+
   private addRow(label: string, value: string): void {
     const row = document.createElement('div');
     row.className = styles['row'];

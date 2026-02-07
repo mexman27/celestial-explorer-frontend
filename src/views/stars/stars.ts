@@ -1,3 +1,4 @@
+import { View } from '@/components/view/view.ts';
 import { Viewport } from '@/integrations/three/objects/viewport.ts';
 import { StarField } from '@/integrations/three/objects/star-field.ts';
 import type { StarPoint } from '@/integrations/three/objects/star-field.ts';
@@ -7,11 +8,10 @@ import { GaiaClient } from '@/http/gaia/main.ts';
 import { createLogger } from '@/services/logger/main.ts';
 import { SceneTooltip } from '@/integrations/three/overlays/scene-tooltip/scene-tooltip.ts';
 import { Overlay } from '@/components/overlay/overlay.ts';
-import styles from './stars.module.css';
-
 const log = createLogger('stars');
 
 type StarRecord = {
+  id: number;
   name: string;
   x_parsecs: number | null;
   y_parsecs: number | null;
@@ -116,8 +116,8 @@ async function loadStars(
 }
 
 export function stars(): HTMLElement {
-  const el = document.createElement('div');
-  el.className = styles['container'];
+  const view = new View();
+  const el = view.el;
 
   const viewport = new Viewport(el, { background: 0x030308 });
   const starField = new StarField(viewport.scene);
@@ -178,8 +178,10 @@ export function stars(): HTMLElement {
 
       pinned = true;
       starField.highlight(hit.instanceId);
-      tooltip.show(tooltipRows(records[hit.instanceId]), hit.screenX, hit.screenY);
+      const record = records[hit.instanceId];
+      tooltip.show(tooltipRows(record), hit.screenX, hit.screenY);
       tooltip.setInteractive(true);
+      tooltip.addLink('View Details \u2192', `#/stars?id=${record.id}`);
     },
   });
 

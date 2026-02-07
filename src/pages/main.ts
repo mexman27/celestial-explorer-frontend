@@ -33,7 +33,7 @@ export function main(): HTMLDivElement {
   });
   sidebar.mount(el);
 
-  const view = new View({ content: '' });
+  const view = new View();
   view.mount(el);
 
   new Router(view.el, routes, PATHS.HOME);
