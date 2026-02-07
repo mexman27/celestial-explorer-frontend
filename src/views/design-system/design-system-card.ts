@@ -3,6 +3,7 @@ import { Card } from '@/components/card/card';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
 import { Grid } from '@/components/grid/grid';
+import { List } from '@/components/list/list';
 
 export function designSystemCard(): HTMLElement {
   const el = document.createElement('div');
@@ -52,15 +53,10 @@ export function designSystemCard(): HTMLElement {
   const nested = new Section({ title: new Title({ text: 'Nested Content', type: 'section' }) });
   const nestedGrid = new Grid();
   const nestedCard = new Card({ title: 'Star Properties' });
-  const list = document.createElement('ul');
-  list.style.cssText = 'list-style: none; display: flex; flex-direction: column; gap: 0.5rem;';
-  ['Spectral type: G2V', 'Temperature: 5,778 K', 'Luminosity: 1.0 L☉', 'Age: 4.6 billion years'].forEach(text => {
-    const li = document.createElement('li');
-    li.style.color = 'var(--color-text-secondary)';
-    li.textContent = text;
-    list.appendChild(li);
+  const list = new List({
+    items: ['Spectral type: G2V', 'Temperature: 5,778 K', 'Luminosity: 1.0 L☉', 'Age: 4.6 billion years'],
   });
-  nestedCard.getBody().appendChild(list);
+  list.mount(nestedCard.getBody());
   nestedCard.mount(nestedGrid.getEl());
   nested.append(nestedGrid.getEl());
   nested.mount(el);
