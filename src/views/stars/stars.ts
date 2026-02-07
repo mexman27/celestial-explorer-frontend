@@ -3,7 +3,10 @@ import { StarField } from '@/integrations/three/objects/star-field.ts';
 import type { StarPoint } from '@/integrations/three/objects/star-field.ts';
 import { CameraControls } from '@/integrations/three/interactions/camera-controls.ts';
 import { GaiaClient } from '@/http/gaia/main.ts';
+import { createLogger } from '@/services/logger/main.ts';
 import styles from './stars.module.css';
+
+const log = createLogger('stars');
 
 type StarRecord = {
   x_parsecs: number | null;
@@ -58,15 +61,35 @@ function toStarPoint(star: StarRecord): StarPoint {
   };
 }
 
+const RENDER_BATCH = 500;
+
 async function loadStars(client: GaiaClient, field: StarField): Promise<void> {
-  const result = await client.stars.list<StarRecord>({ page_size: 5000 });
-  if (!result.ok) return;
+  const points: StarPoint[] = [];
+  let lastRender = 0;
 
-  const points = result.data.results
-    .filter(s => s.x_parsecs != null && s.y_parsecs != null && s.z_parsecs != null)
-    .map(toStarPoint);
+  for await (const page of client.stars.paginate<StarRecord>({ page_size: 5000 })) {
+    if (!page.ok) {
+      log.error('Failed to fetch stars', page.error);
+      break;
+    }
 
-  field.setData(points);
+    const valid = page.data.results.filter(
+      s => s.x_parsecs != null && s.y_parsecs != null && s.z_parsecs != null,
+    );
+    points.push(...valid.map(toStarPoint));
+
+    if (points.length - lastRender >= RENDER_BATCH) {
+      log.debug(`Rendering batch: ${points.length}/${page.data.count}`);
+      field.setData(points);
+      lastRender = points.length;
+    }
+  }
+
+  if (points.length !== lastRender) {
+    field.setData(points);
+  }
+
+  log.info(`Loaded ${points.length} stars`);
 }
 
 export function stars(): HTMLElement {
@@ -75,9 +98,10 @@ export function stars(): HTMLElement {
 
   const viewport = new Viewport(el, { background: 0x030308 });
   const starField = new StarField(viewport.scene);
-  new CameraControls(viewport);
 
   viewport.camera.position.set(0, 15, 30);
+  new CameraControls(viewport);
+
   viewport.start();
 
   const client = new GaiaClient();
