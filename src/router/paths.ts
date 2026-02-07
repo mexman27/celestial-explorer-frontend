@@ -22,4 +22,5 @@ export const PATHS = {
   DESIGN_SYSTEM: '#/design-system',
   DESIGN_SYSTEM_BUTTON: '#/design-system/button',
   DESIGN_SYSTEM_CARD: '#/design-system/card',
+  DESIGN_SYSTEM_INPUT: '#/design-system/input',
 } as const;

@@ -26,4 +26,5 @@ export const routes: Routes = {
   [PATHS.DESIGN_SYSTEM]: Views.designSystem,
   [PATHS.DESIGN_SYSTEM_BUTTON]: Views.designSystemButton,
   [PATHS.DESIGN_SYSTEM_CARD]: Views.designSystemCard,
+  [PATHS.DESIGN_SYSTEM_INPUT]: Views.designSystemInput,
 };

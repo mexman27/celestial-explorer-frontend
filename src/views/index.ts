@@ -30,4 +30,5 @@ export {
   designSystem,
   designSystemButton,
   designSystemCard,
+  designSystemInput,
 } from './design-system';

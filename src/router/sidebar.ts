@@ -33,5 +33,6 @@ export const sidebarLinks: Record<string, SidebarLink[]> = {
   [PATHS.DESIGN_SYSTEM]: [
     { label: 'Button', href: PATHS.DESIGN_SYSTEM_BUTTON },
     { label: 'Card', href: PATHS.DESIGN_SYSTEM_CARD },
+    { label: 'Input', href: PATHS.DESIGN_SYSTEM_INPUT },
   ],
 };
