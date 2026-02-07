@@ -1,13 +1,11 @@
 import styles from './main.module.css';
 import { Label } from './components/label/label';
 import { Comment } from './components/comment/comment';
-import { Toggle } from './components/toggle/toggle';
 import { Field } from './components/field/field';
 
 type Props = {
   label?: string;
   comment?: string;
-  toggle?: boolean;
   placeholder?: string;
   value?: string;
   disabled?: boolean;
@@ -18,12 +16,12 @@ export class Input {
   private el: HTMLDivElement;
   private field: Field;
 
-  constructor({ label, comment, toggle = false, placeholder, value, disabled = false, onChange }: Props = {}) {
+  constructor({ label, comment, placeholder, value, disabled = false, onChange }: Props = {}) {
     this.el = document.createElement('div');
     this.el.className = styles['wrapper'];
 
     if (label) {
-      new Label({ text: label, toggle: toggle ? new Toggle() : undefined }).mount(this.el);
+      new Label(label).mount(this.el);
     }
 
     this.field = new Field({ placeholder, value, disabled, onChange });

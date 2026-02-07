@@ -34,14 +34,6 @@ export function designSystemInput(): HTMLElement {
   commented.append(commentedGrid.getEl());
   commented.mount(el);
 
-  // With Toggle
-  const toggled = new Section({ title: new Title({ text: 'With Toggle', type: 'section' }) });
-  const toggledGrid = new Grid({ columns: ['1fr', '1fr'] });
-  new Input({ label: 'Custom name', toggle: true, placeholder: 'Override default name' }).mount(toggledGrid.getEl());
-  new Input({ label: 'Notes', toggle: true, placeholder: 'Optional notes', comment: 'Toggle to enable field' }).mount(toggledGrid.getEl());
-  toggled.append(toggledGrid.getEl());
-  toggled.mount(el);
-
   // Disabled
   const disabled = new Section({ title: new Title({ text: 'Disabled', type: 'section' }) });
   const disabledGrid = new Grid({ columns: ['1fr', '1fr'] });
