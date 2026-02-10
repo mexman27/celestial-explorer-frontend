@@ -116,7 +116,7 @@ async function loadStars(
 }
 
 export function stars(): HTMLElement {
-  const view = new View();
+  const view = new View({ padding: 'p0' });
   const el = view.el;
 
   const viewport = new Viewport(el, { background: 0x030308 });

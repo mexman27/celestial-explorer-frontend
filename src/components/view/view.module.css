@@ -3,6 +3,23 @@
   width: 100%;
   height: 100%;
   background-color: var(--color-bg-primary);
-  overflow: auto;
+  overflow: hidden;
   color: var(--color-text-primary);
 }
+
+.p0 {
+  padding: 0;
+}
+
+.p5 {
+  padding: var(--space-1);
+}
+
+.p10 {
+  padding: var(--space-2);
+}
+
+.p20 {
+  padding: var(--space-5);
+}
+

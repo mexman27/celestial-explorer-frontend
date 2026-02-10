@@ -33,7 +33,7 @@ export function main(): HTMLDivElement {
   });
   sidebar.mount(el);
 
-  const view = new View();
+  const view = new View({ padding: 'p0' });
   view.mount(el);
 
   new Router(view.el, routes, PATHS.HOME);
