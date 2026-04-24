@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function planetsGasGiants(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'Massive planets composed primarily of gas';
-  view.el.appendChild(el);
+  new Text({ text: 'Massive planets composed primarily of gas' }).mount(view.el);
   return view.el;
 }

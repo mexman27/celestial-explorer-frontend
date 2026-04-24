@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function planetsExoplanets(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'Planets orbiting stars beyond our Sun';
-  view.el.appendChild(el);
+  new Text({ text: 'Planets orbiting stars beyond our Sun' }).mount(view.el);
   return view.el;
 }

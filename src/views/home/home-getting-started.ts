@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function homeGettingStarted(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'Getting started with Celestial Explorer';
-  view.el.appendChild(el);
+  new Text({ text: 'Getting started with Celestial Explorer' }).mount(view.el);
   return view.el;
 }
