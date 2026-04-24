@@ -1,5 +1,6 @@
 import styles from './nav.module.css';
 import { SidebarLink } from '@/router/sidebar';
+import { isSafeUrl } from '@/services/url/is-safe-url.ts';
 
 type Props = {
   links: Record<string, SidebarLink[]>;
@@ -36,16 +37,22 @@ export class SidebarNav {
 
     this.el.innerHTML = '';
     currentLinks.forEach(({ label, href }) => {
-      const a = document.createElement('a');
-      a.className = styles['link'];
-      a.href = href;
-      a.textContent = label;
+      let node: HTMLElement;
+      if (isSafeUrl(href)) {
+        const a = document.createElement('a');
+        a.href = href;
+        node = a;
+      } else {
+        node = document.createElement('span');
+      }
+      node.className = styles['link'];
+      node.textContent = label;
 
       if (location.hash === href) {
-        a.classList.add(styles['active']);
+        node.classList.add(styles['active']);
       }
 
-      this.el.appendChild(a);
+      this.el.appendChild(node);
     });
   }
 

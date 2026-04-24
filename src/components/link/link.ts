@@ -1,4 +1,5 @@
 import styles from './link.module.css';
+import { isSafeUrl } from '@/services/url/is-safe-url.ts';
 
 type Props = {
   text: string;
@@ -6,12 +7,17 @@ type Props = {
 };
 
 export class Link {
-  el: HTMLAnchorElement;
+  el: HTMLElement;
 
   constructor({ text, href }: Props) {
-    this.el = document.createElement('a');
+    if (isSafeUrl(href)) {
+      const a = document.createElement('a');
+      a.href = href;
+      this.el = a;
+    } else {
+      this.el = document.createElement('span');
+    }
     this.el.className = styles['link'];
-    this.el.href = href;
     this.el.textContent = text;
   }
 
