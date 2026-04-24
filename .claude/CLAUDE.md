@@ -6,6 +6,18 @@ Vanilla TypeScript frontend (no React/Vue/Svelte). Built with Vite, Three.js for
 
 Refer to `.claude/plans/PLAN.md` for full architecture, project structure, and development phases.
 
+## Commands
+
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Start Vite dev server with HMR |
+| `npm run typecheck` | Run `tsc --noEmit` — type errors only, no bundle |
+| `npm run build` | Typecheck + production bundle (`tsc && vite build`) |
+| `npm run test` | Run Vitest |
+| `npm run preview` | Preview the production bundle locally |
+
+Use `typecheck` for fast verification while editing. Use `build` before shipping.
+
 ## Path Aliases
 
 - `@/` → `src/`
