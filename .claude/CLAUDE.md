@@ -142,6 +142,25 @@ For dynamic content:
 
 **When assigning a dynamic value to `anchor.href` (or any URL sink), validate the scheme first.** Anything that isn't `http(s):` must render as plain text, not as an anchor. `javascript:` URLs in an href execute arbitrary JS with access to the page's origin.
 
+## CSS Token Rule (strict)
+
+**Never write raw CSS custom-property references (`var(--token)`) in `.ts` files.** Tokens like `var(--space-8)`, `var(--color-text-muted)`, `var(--font-size-sm)` belong in `.module.css` files only.
+
+Components expose typed props for dynamic values (e.g. `gap?: 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16` for spacing steps) and internally translate the prop into the token. Views pass the typed value (`gap: 8`), not the token string.
+
+Forbidden in `.ts` files:
+- `el.style.gap = 'var(--space-8)'`
+- `el.style.color = 'var(--color-text-muted)'`
+- `` `var(--space-${n})` `` where `n` is `number` (no compile-time check that the token exists)
+
+Allowed:
+- `var(--…)` anywhere inside `.module.css`
+- A component's internal mapping of a **typed-union** prop to a token string, e.g. `` `var(--space-${gap})` `` where `gap` has type `1 | 2 | … | 16`
+
+**Why:** raw token strings in TypeScript bypass type checking — a typo like `var(--space-7)` (no such token) or `var(--colour-text-muted)` compiles fine and renders as the fallback (usually `0` or inherited), silently breaking the design. Typed props catch these at compile time, give autocomplete, and let the component own the token vocabulary instead of leaking it into every caller.
+
+**How to apply:** If you find yourself writing `var(--…)` in a `.ts` file, the component whose inline style you're writing is missing a prop — add it. If a view reaches for a token, the component API is incomplete. Do not settle for `string` as the prop type; use a literal union that matches the defined tokens.
+
 ---
 
 # Third-Party Dependency Policy
