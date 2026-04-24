@@ -52,6 +52,10 @@ export class Viewport {
     return () => this.tickCallbacks.delete(cb);
   }
 
+  setCursor(mode: 'default' | 'pointer'): void {
+    this.renderer.domElement.style.cursor = mode === 'pointer' ? 'pointer' : '';
+  }
+
   start(): void {
     if (this.frameId !== null) return;
     this.clock.start();
