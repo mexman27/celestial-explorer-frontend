@@ -11,6 +11,10 @@
   font-size: var(--font-size-sm);
 }
 
+.hidden {
+  display: none;
+}
+
 .spinner {
   width: 28px;
   height: 28px;
