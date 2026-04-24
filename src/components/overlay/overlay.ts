@@ -28,6 +28,10 @@ export class Overlay {
   }
 
   mount(parent: HTMLElement): void {
+    const position = getComputedStyle(parent).position;
+    if (position === 'static') {
+      parent.style.position = 'relative';
+    }
     parent.appendChild(this.el);
   }
 
