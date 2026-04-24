@@ -1,4 +1,5 @@
 import styles from './item.module.css';
+import { isSafeUrl } from '@/services/url/is-safe-url.ts';
 
 type Props = {
   label: string;
@@ -6,11 +7,18 @@ type Props = {
 };
 
 export class Item {
-  private el: HTMLAnchorElement;
+  private el: HTMLElement;
+  private href: string;
 
   constructor({ label, href }: Props) {
-    this.el = document.createElement('a');
-    this.el.href = href;
+    this.href = href;
+    if (isSafeUrl(href)) {
+      const a = document.createElement('a');
+      a.href = href;
+      this.el = a;
+    } else {
+      this.el = document.createElement('span');
+    }
     this.el.className = styles['item'];
     this.el.textContent = label;
 
@@ -20,8 +28,7 @@ export class Item {
 
   private syncActive(): void {
     const hash = location.hash;
-    const target = this.el.hash;
-    const isActive = hash === target || hash.startsWith(target + '/');
+    const isActive = hash === this.href || hash.startsWith(this.href + '/');
     this.el.classList.toggle(styles['active'], isActive);
   }
 

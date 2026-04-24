@@ -15,7 +15,7 @@ export class Overlay {
 
     this.el = document.createElement('div');
     this.el.className = styles['overlay'];
-    this.el.style.display = visible ? '' : 'none';
+    this.el.classList.toggle(styles['hidden'], !visible);
 
     this.spinnerEl = document.createElement('div');
     this.spinnerEl.className = styles['spinner'];
@@ -28,6 +28,10 @@ export class Overlay {
   }
 
   mount(parent: HTMLElement): void {
+    const position = getComputedStyle(parent).position;
+    if (position === 'static') {
+      parent.style.position = 'relative';
+    }
     parent.appendChild(this.el);
   }
 
@@ -36,10 +40,10 @@ export class Overlay {
   }
 
   show(): void {
-    this.el.style.display = '';
+    this.el.classList.remove(styles['hidden']);
   }
 
   hide(): void {
-    this.el.style.display = 'none';
+    this.el.classList.add(styles['hidden']);
   }
 }

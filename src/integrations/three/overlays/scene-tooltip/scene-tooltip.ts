@@ -1,4 +1,5 @@
 import styles from './scene-tooltip.module.css';
+import { isSafeUrl } from '@/services/url/is-safe-url.ts';
 
 export type TooltipRow = {
   label: string;
@@ -51,11 +52,17 @@ export class SceneTooltip {
   }
 
   addLink(text: string, href: string): void {
-    const link = document.createElement('a');
-    link.className = styles['link'];
-    link.href = href;
-    link.textContent = text;
-    this.el.appendChild(link);
+    let node: HTMLElement;
+    if (isSafeUrl(href)) {
+      const a = document.createElement('a');
+      a.href = href;
+      node = a;
+    } else {
+      node = document.createElement('span');
+    }
+    node.className = styles['link'];
+    node.textContent = text;
+    this.el.appendChild(node);
   }
 
   private addRow(label: string, value: string): void {

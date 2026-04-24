@@ -18,3 +18,19 @@
   color: var(--color-text-secondary);
   line-height: var(--line-height-base);
 }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
+}
+
+.row-label {
+  color: var(--color-text-muted);
+}
+
+.row-value {
+  font-family: var(--font-family-mono);
+  text-align: right;
+}

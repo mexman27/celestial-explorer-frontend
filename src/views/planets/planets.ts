@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function planets(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'Discover planets across the cosmos';
-  view.el.appendChild(el);
+  new Text({ text: 'Discover planets across the cosmos' }).mount(view.el);
   return view.el;
 }

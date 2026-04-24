@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function starsBrightest(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'The brightest stars visible from Earth';
-  view.el.appendChild(el);
+  new Text({ text: 'The brightest stars visible from Earth' }).mount(view.el);
   return view.el;
 }

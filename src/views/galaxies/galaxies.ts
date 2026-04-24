@@ -1,9 +1,8 @@
 import { View } from '@/components/view/view.ts';
+import { Text } from '@/components/text/text.ts';
 
 export function galaxies(): HTMLElement {
   const view = new View();
-  const el = document.createElement('p');
-  el.textContent = 'Journey through distant galaxies';
-  view.el.appendChild(el);
+  new Text({ text: 'Journey through distant galaxies' }).mount(view.el);
   return view.el;
 }

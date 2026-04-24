@@ -7,7 +7,7 @@ type Props = {
 };
 
 export class Grid {
-  private el: HTMLDivElement;
+  el: HTMLDivElement;
 
   constructor({ columns }: Props = {}) {
     this.el = document.createElement('div');
@@ -19,9 +19,5 @@ export class Grid {
 
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
-  }
-
-  getEl(): HTMLDivElement {
-    return this.el;
   }
 }
