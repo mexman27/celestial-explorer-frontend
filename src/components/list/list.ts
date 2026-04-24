@@ -7,7 +7,7 @@ type Props = {
 };
 
 export class List {
-  private el: HTMLUListElement | HTMLOListElement;
+  el: HTMLUListElement | HTMLOListElement;
 
   constructor({ items, type = 'ul' }: Props) {
     this.el = document.createElement(type);

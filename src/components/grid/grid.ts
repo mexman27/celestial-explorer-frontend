@@ -7,7 +7,7 @@ type Props = {
 };
 
 export class Grid {
-  private el: HTMLDivElement;
+  el: HTMLDivElement;
 
   constructor({ columns }: Props = {}) {
     this.el = document.createElement('div');
