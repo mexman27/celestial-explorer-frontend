@@ -1,16 +1,15 @@
 import { View } from '@/components/view/view.ts';
-import styles from './showcase.module.css';
 import { Input } from '@/components/input/main';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
 import { Grid } from '@/components/grid/grid';
+import { Flex } from '@/components/flex/flex';
 
 export function designSystemInput(): HTMLElement {
   const view = new View();
-  const el = document.createElement('div');
-  el.className = styles['page'];
+  const page = new Flex({ direction: 'column', gap: 8 });
 
-  new Title({ text: 'Input' }).mount(el);
+  new Title({ text: 'Input' }).mount(page.el);
 
   // Default
   const defaults = new Section({ title: new Title({ text: 'Default', type: 'section' }) });
@@ -18,7 +17,7 @@ export function designSystemInput(): HTMLElement {
   new Input({ placeholder: 'Enter text...' }).mount(defaultsGrid.getEl());
   new Input({ value: 'Prefilled value' }).mount(defaultsGrid.getEl());
   defaults.append(defaultsGrid.getEl());
-  defaults.mount(el);
+  defaults.mount(page.el);
 
   // With Label
   const labeled = new Section({ title: new Title({ text: 'With Label', type: 'section' }) });
@@ -26,7 +25,7 @@ export function designSystemInput(): HTMLElement {
   new Input({ label: 'Star name', placeholder: 'e.g. Proxima Centauri' }).mount(labeledGrid.getEl());
   new Input({ label: 'Distance', placeholder: 'Light-years' }).mount(labeledGrid.getEl());
   labeled.append(labeledGrid.getEl());
-  labeled.mount(el);
+  labeled.mount(page.el);
 
   // With Comment
   const commented = new Section({ title: new Title({ text: 'With Comment', type: 'section' }) });
@@ -34,7 +33,7 @@ export function designSystemInput(): HTMLElement {
   new Input({ label: 'Spectral type', placeholder: 'e.g. G2V', comment: 'Classification based on stellar spectra' }).mount(commentedGrid.getEl());
   new Input({ label: 'Magnitude', placeholder: 'e.g. 4.83', comment: 'Apparent visual magnitude' }).mount(commentedGrid.getEl());
   commented.append(commentedGrid.getEl());
-  commented.mount(el);
+  commented.mount(page.el);
 
   // Disabled
   const disabled = new Section({ title: new Title({ text: 'Disabled', type: 'section' }) });
@@ -42,8 +41,8 @@ export function designSystemInput(): HTMLElement {
   new Input({ label: 'Read-only field', value: 'Cannot edit', disabled: true }).mount(disabledGrid.getEl());
   new Input({ placeholder: 'Disabled input', disabled: true }).mount(disabledGrid.getEl());
   disabled.append(disabledGrid.getEl());
-  disabled.mount(el);
+  disabled.mount(page.el);
 
-  view.el.appendChild(el);
+  page.mount(view.el);
   return view.el;
 }

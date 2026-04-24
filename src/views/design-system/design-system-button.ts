@@ -1,5 +1,4 @@
 import { View } from '@/components/view/view.ts';
-import styles from './showcase.module.css';
 import { Button } from '@/components/button/button';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
@@ -7,10 +6,9 @@ import { Flex } from '@/components/flex/flex';
 
 export function designSystemButton(): HTMLElement {
   const view = new View();
-  const el = document.createElement('div');
-  el.className = styles['page'];
+  const page = new Flex({ direction: 'column', gap: 8 });
 
-  new Title({ text: 'Button' }).mount(el);
+  new Title({ text: 'Button' }).mount(page.el);
 
   // Primary
   const primary = new Section({ title: new Title({ text: 'Primary', type: 'section' }) });
@@ -27,7 +25,7 @@ export function designSystemButton(): HTMLElement {
   });
   primaryCounter.mount(primaryFlex.getEl());
   primary.append(primaryFlex.getEl());
-  primary.mount(el);
+  primary.mount(page.el);
 
   // Secondary
   const secondary = new Section({ title: new Title({ text: 'Secondary', type: 'section' }) });
@@ -45,7 +43,7 @@ export function designSystemButton(): HTMLElement {
   });
   secondaryCounter.mount(secondaryFlex.getEl());
   secondary.append(secondaryFlex.getEl());
-  secondary.mount(el);
+  secondary.mount(page.el);
 
   // Danger
   const danger = new Section({ title: new Title({ text: 'Danger', type: 'section' }) });
@@ -63,7 +61,7 @@ export function designSystemButton(): HTMLElement {
   });
   dangerCounter.mount(dangerFlex.getEl());
   danger.append(dangerFlex.getEl());
-  danger.mount(el);
+  danger.mount(page.el);
 
   // Success
   const success = new Section({ title: new Title({ text: 'Success', type: 'section' }) });
@@ -81,7 +79,7 @@ export function designSystemButton(): HTMLElement {
   });
   successCounter.mount(successFlex.getEl());
   success.append(successFlex.getEl());
-  success.mount(el);
+  success.mount(page.el);
 
   // Warning
   const warning = new Section({ title: new Title({ text: 'Warning', type: 'section' }) });
@@ -99,8 +97,8 @@ export function designSystemButton(): HTMLElement {
   });
   warningCounter.mount(warningFlex.getEl());
   warning.append(warningFlex.getEl());
-  warning.mount(el);
+  warning.mount(page.el);
 
-  view.el.appendChild(el);
+  page.mount(view.el);
   return view.el;
 }

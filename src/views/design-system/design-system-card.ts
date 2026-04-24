@@ -1,17 +1,16 @@
 import { View } from '@/components/view/view.ts';
-import styles from './showcase.module.css';
 import { Card } from '@/components/card/card';
 import { Title } from '@/components/title/title';
 import { Section } from '@/components/section/section';
 import { Grid } from '@/components/grid/grid';
 import { List } from '@/components/list/list';
+import { Flex } from '@/components/flex/flex';
 
 export function designSystemCard(): HTMLElement {
   const view = new View();
-  const el = document.createElement('div');
-  el.className = styles['page'];
+  const page = new Flex({ direction: 'column', gap: 8 });
 
-  new Title({ text: 'Card' }).mount(el);
+  new Title({ text: 'Card' }).mount(page.el);
 
   // Title + Body
   const full = new Section({ title: new Title({ text: 'Title + Body', type: 'section' }) });
@@ -29,7 +28,7 @@ export function designSystemCard(): HTMLElement {
     body: 'The largest planet in our solar system with a mass more than twice that of all other planets combined.',
   }).mount(fullGrid.getEl());
   full.append(fullGrid.getEl());
-  full.mount(el);
+  full.mount(page.el);
 
   // Body Only
   const bodyOnly = new Section({ title: new Title({ text: 'Body Only', type: 'section' }) });
@@ -41,7 +40,7 @@ export function designSystemCard(): HTMLElement {
     body: 'Another body-only card showing how the component adapts when no heading is provided.',
   }).mount(bodyGrid.getEl());
   bodyOnly.append(bodyGrid.getEl());
-  bodyOnly.mount(el);
+  bodyOnly.mount(page.el);
 
   // Title Only
   const titleOnly = new Section({ title: new Title({ text: 'Title Only', type: 'section' }) });
@@ -49,7 +48,7 @@ export function designSystemCard(): HTMLElement {
   new Card({ title: 'Empty State' }).mount(titleGrid.getEl());
   new Card({ title: 'Placeholder' }).mount(titleGrid.getEl());
   titleOnly.append(titleGrid.getEl());
-  titleOnly.mount(el);
+  titleOnly.mount(page.el);
 
   // With Nested Content
   const nested = new Section({ title: new Title({ text: 'Nested Content', type: 'section' }) });
@@ -61,8 +60,8 @@ export function designSystemCard(): HTMLElement {
   list.mount(nestedCard.getBody());
   nestedCard.mount(nestedGrid.getEl());
   nested.append(nestedGrid.getEl());
-  nested.mount(el);
+  nested.mount(page.el);
 
-  view.el.appendChild(el);
+  page.mount(view.el);
   return view.el;
 }
