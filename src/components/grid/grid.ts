@@ -20,8 +20,4 @@ export class Grid {
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
-
-  getEl(): HTMLDivElement {
-    return this.el;
-  }
 }

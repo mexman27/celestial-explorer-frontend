@@ -18,16 +18,16 @@ export function designSystemCard(): HTMLElement {
   new Card({
     title: 'Andromeda Galaxy',
     body: 'The nearest major galaxy to the Milky Way, approximately 2.5 million light-years away.',
-  }).mount(fullGrid.getEl());
+  }).mount(fullGrid.el);
   new Card({
     title: 'Proxima Centauri',
     body: 'The closest known star to the Sun, a red dwarf in the Alpha Centauri system.',
-  }).mount(fullGrid.getEl());
+  }).mount(fullGrid.el);
   new Card({
     title: 'Jupiter',
     body: 'The largest planet in our solar system with a mass more than twice that of all other planets combined.',
-  }).mount(fullGrid.getEl());
-  full.append(fullGrid.getEl());
+  }).mount(fullGrid.el);
+  full.append(fullGrid.el);
   full.mount(page.el);
 
   // Body Only
@@ -35,19 +35,19 @@ export function designSystemCard(): HTMLElement {
   const bodyGrid = new Grid();
   new Card({
     body: 'A card without a title, useful for simple content blocks or status messages.',
-  }).mount(bodyGrid.getEl());
+  }).mount(bodyGrid.el);
   new Card({
     body: 'Another body-only card showing how the component adapts when no heading is provided.',
-  }).mount(bodyGrid.getEl());
-  bodyOnly.append(bodyGrid.getEl());
+  }).mount(bodyGrid.el);
+  bodyOnly.append(bodyGrid.el);
   bodyOnly.mount(page.el);
 
   // Title Only
   const titleOnly = new Section({ title: new Title({ text: 'Title Only', type: 'section' }) });
   const titleGrid = new Grid();
-  new Card({ title: 'Empty State' }).mount(titleGrid.getEl());
-  new Card({ title: 'Placeholder' }).mount(titleGrid.getEl());
-  titleOnly.append(titleGrid.getEl());
+  new Card({ title: 'Empty State' }).mount(titleGrid.el);
+  new Card({ title: 'Placeholder' }).mount(titleGrid.el);
+  titleOnly.append(titleGrid.el);
   titleOnly.mount(page.el);
 
   // With Nested Content
@@ -57,9 +57,9 @@ export function designSystemCard(): HTMLElement {
   const list = new List({
     items: ['Spectral type: G2V', 'Temperature: 5,778 K', 'Luminosity: 1.0 L☉', 'Age: 4.6 billion years'],
   });
-  list.mount(nestedCard.getBody());
-  nestedCard.mount(nestedGrid.getEl());
-  nested.append(nestedGrid.getEl());
+  list.mount(nestedCard.body);
+  nestedCard.mount(nestedGrid.el);
+  nested.append(nestedGrid.el);
   nested.mount(page.el);
 
   page.mount(view.el);

@@ -21,8 +21,4 @@ export class List {
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
   }
-
-  getEl(): HTMLUListElement | HTMLOListElement {
-    return this.el;
-  }
 }

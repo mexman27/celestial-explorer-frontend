@@ -14,8 +14,8 @@ type Props = {
 
 export class Card {
   el: HTMLDivElement;
+  body: HTMLDivElement;
   private title: Title | null = null;
-  private bodyEl: HTMLDivElement;
 
   constructor({ title, body, rows }: Props) {
     this.el = document.createElement('div');
@@ -26,24 +26,20 @@ export class Card {
       this.title.mount(this.el);
     }
 
-    this.bodyEl = document.createElement('div');
-    this.bodyEl.className = styles['body'];
+    this.body = document.createElement('div');
+    this.body.className = styles['body'];
     if (body) {
-      this.bodyEl.textContent = body;
+      this.body.textContent = body;
     } else if (rows) {
       for (const row of rows) {
-        this.bodyEl.appendChild(this.buildRow(row));
+        this.body.appendChild(this.buildRow(row));
       }
     }
-    this.el.appendChild(this.bodyEl);
+    this.el.appendChild(this.body);
   }
 
   mount(parent: HTMLElement): void {
     parent.appendChild(this.el);
-  }
-
-  getBody(): HTMLDivElement {
-    return this.bodyEl;
   }
 
   update({ title, body }: Partial<Pick<Props, 'title' | 'body'>>): void {
@@ -51,7 +47,7 @@ export class Card {
       this.title.update(title);
     }
     if (body !== undefined) {
-      this.bodyEl.textContent = body;
+      this.body.textContent = body;
     }
   }
 
